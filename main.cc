@@ -16,5 +16,9 @@ int subtracao(int a, int b)
 }
 
 int main(){
-	return 0;
+	auto a = 2;
+	auto b = 4;
+	std::cout << soma(a,b) << std::endl;
+	std::cout << multiplicacao(a,b) << std::endl;
+	std::cout << subtracao(a,b) << std::endl;
 }
