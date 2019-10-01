@@ -60,7 +60,27 @@ O comando git init server para inicializar um repositório `git` no diretorio lo
 Permite clonar um repositório existente. Quando o repositório é criado, o git
 já adiciona um remote chamado 'origin' com a URL utilizada no comando clone.
 
+### Adicionando e modificando seus arquivos
 
+#### git-add
+
+`git-add <path>`
+
+O comando `git add` adiciona o arquivo no index, também chamada de "stage area". 
+Com esse comando você está dizendo ao git o que vai submetido no próximo commit.
+Ou seja, você especifica quais serão as proxímas alterações que serão gravadas 
+na base de dados do git.
+
+Coisas legais do `git add`:
+
+- `--patch` ou `-p`: permite adicionar apenas algumas alterações de um arquivo.
+
+#### git-status
+#### git-diff
+#### git-commit
+#### git-reset
+#### git-rm
+#### git-mv
 
 - Adicionando seu primeiro arquivo
 
