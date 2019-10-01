@@ -3,14 +3,64 @@
 Esse repositório tem o intuito de ajudar as desenvolvedoras e desenvolvedores 
 a entenderem o básico de 'git'. E talvez, algo a mais também! ;)
 
-Criando seu repositório
-----------------------
+#### O que é git?
+Git é um sistema de gerenciador de versões. Outros gerenciadores de versões 
+disponiveis, como Subversion (SVN), Mercurial (HG), Bitkeeper e CVS.
 
-### git-init
+#### O que é um sitema de gerenciador de versões?
+Um sistema de gerenciamento de versões são ferramentas que auxiliam na 
+colaboração entre usuário que estão trabalhando junto em um mesmo projeto
+ou repositório. Git, como um uma dessa ferramentas permite que os usuário
+possam acompanhar alterações em arquivos e compartilhar alterações com outros
+usuários. Permitindo até o usário voltar a uma versão anterior dos arquivos.
+
+https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control
+
+#### Qual a diferença entre Git e os demais gerenciadores de versões?
+Git é um gerenciador de versões distribuido. Isso significa que cada cópia 
+de umrepositório contem todo os dados e meta dados para fazer qualquer 
+comando. Isso é umas das principais diferenças entre ele e o SVN e CVS. 
+Nesses gerenciadores de versão o usuário não é capaz de efetuar alguns 
+comandos como submeter alterações nem visualizar o histórico de alterações 
+sem uma conexão com o central.
+
+Outra grande diferença entre o git e outros gerenciadores de versões é que ele
+não armazena alterações. Ele "tira fotos" do estado de seu projeto. 
+Em outros palavras, ao inves do git guardar as alterações dos arquivos entre 
+uma versão e outra como é feito pelo SVN e similares. O guarda o estado de todo
+o projeto. E quando não ha alterações no arquivos, ele faz apenas um link para
+a versão identica anterior.
+
+#### Remotes
+No Git remotes são URI nos quais o git pode trazer ou mandar alterações, 
+comparar versões, entre outras operações
+
+
+Comandos
+--------
+
+Essa documentação tenta explicar como utilizar os comandos básicos do Git
+através da linha de comando. Se você prefere uma interface gráfica existem 
+algumas opções disponiveis na Internet. Porém, algumas informações que serão
+ditas aqui podem auxiliar na utilização de tais programas.
+
+
+### Criando seu repositório
+
+#### git-init
 
 `git init`
 
 O comando git init server para inicializar um repositório `git` no diretorio local
+
+#### git-clone
+
+`git clone <url>`
+
+Permite clonar um repositório existente. Quando o repositório é criado, o git
+já adiciona um remote chamado 'origin' com a URL utilizada no comando clone.
+
+
 
 - Adicionando seu primeiro arquivo
 
