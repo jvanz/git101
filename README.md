@@ -49,7 +49,13 @@ para uso e modificação
 ### O que é o 'HEAD'?
 HEAD é um ponteiro para o commit no qual as alterações feitas são baseadas.
 
+#### O que é branch (ramos) ?
+Podemos pensar em branches como linhas de desenvolvimento paralelas. Isso 
+significa que em um mesmo repositório podemos estar desenvolvendo diversas
+funcionalidade e correções sem que um afete a outra. 
+
 #### O que é o diretório de trabalho?
+
 
 
 Comandos
@@ -165,7 +171,63 @@ Permite ao usuário mover ou renomear um arquivo. Se o mudança do local do arqu
 o diretório de destino já deve estar presente. Ao fazer a renomeação ou mudança
 de local, o index é atualizado.
 
-- Adicionando seu primeiro arquivos
+
+### Ramificações e mesclagens
+
+#### git-branch
+
+git branch [<nome>]
+
+O comando git branch permite ao usuário criar, listar e apagar branches no seu
+repositório. Para listar os branches disponiveis repositório basta executar:
+
+jvanz@earth:~/hackerspace/git101> git branch --list
+  conceitos
+* master
+
+O branch marcado com o `*` é o branch atual.
+
+Para criar novos branches pode ser executado o comando:
+
+git branch meu-branch [<ponto-de-inicio>]
+
+Esse comando cria um novo branch localmente com o nome especificado. Esse branch,
+aponta para o mesmo commit do HEAD. Ou se especificado o <ponto-de-inicio>, o
+branch apontara para o commit especificado. Note que ao criar o branch, o git
+não troca automaticamente de branch. Para isso existe o comando git-checkout.
+
+Para apagar um branch, basta chamar `git branch -d meu-branch`.
+
+<!--
+TODO - descrever mais sobre as opções do git-branch e como funciona.
+Por exemplo:
+  Explicar como fazer um branch baseado em um branch remoto.
+  Explicar as opções -m e -c
+-->
+
+#### git-checkout
+
+git checkout 
+
+Esse comando permite trocarmos de branches ou restaurar o diretório de trabalho.
+Uma vez criado o branch, podemos usar o comando 'git checkout meu-branch' para 
+trocar de branch. Isso significa que o HEAD ira começar apontar para o comit no
+topo do branch, atualiza o index e os arquivos no diretório de trabalho. 
+Uma vez feito isso, os próximos commits serão adicionados no topo do branch recem
+trocado. Alterações locais são mantidas para que possam ser comitadas no branch.
+
+Outro possível uso do comando é para restaurar o diretório de trabalho. Para isso,
+podemos rodar o seguinte comando:
+
+git checkout -- <path>
+
+Esse command faz com que as alterações do diretório de trabalho sejam descartadas.
+Mas as mudanças que estão "staged" são mantidas. Porém, se o comando for um pouco
+diferente, git checkout HEAD -- <path>, as alterações do index/stage também são
+restauradas para a versão do HEAD. Note que HEAD, pode ser outro commit também.
+
+
+Podemos também user o 
 
 `git add main.cc`
 
