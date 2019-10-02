@@ -54,6 +54,11 @@ Podemos pensar em branches como linhas de desenvolvimento paralelas. Isso
 significa que em um mesmo repositório podemos estar desenvolvendo diversas
 funcionalidade e correções sem que um afete a outra. 
 
+#### O que é uma tag (etiqueta)?
+Tags são referencias para commits no seu histórico. Elas servem para marcar pontos
+importantes no desenvolvimento de seu projeto. Por exemplo, você pode usar etiquetas
+para marcar as versões do programa.
+
 #### O que é o diretório de trabalho?
 
 
@@ -226,170 +231,88 @@ Mas as mudanças que estão "staged" são mantidas. Porém, se o comando for um 
 diferente, git checkout HEAD -- <path>, as alterações do index/stage também são
 restauradas para a versão do HEAD. Note que HEAD, pode ser outro commit também.
 
+#### git-merge
 
-Podemos também user o 
+<!--
+TODO
+-->
 
-`git add main.cc`
+#### git-log
 
-O comando `git-add` é utilizado para adicionar arquivos no index. Deixando os 
-arquivos com o status de 'staged'. Ou dizemos que o arquivo esta na area de 'stage'. 
-Em outros palavras, é com esse comando que você diz ao 'git' quais são os 
-arquivos que devem ser gravados no repositório no próximo commit.
+git log 
 
-A opção '--patch' do 'git-add' também permite a desenvolvedora adicionar 
-partes do arquivo no index. Isso permite a desenvolvedora selecionar apenas as
-alterações relacionadas do arquivos. Sem a necessidade de poluir o commit com
-alterações não necessárias.
+Permite visualizar o histórico de alterações. Com esse comando conseguimos
+ver as mensagens de comit, o autor, data, alterações feitas e demais dados
+do commit. Por exemplo:
 
-`git commit`
+jvanz@earth:~/hackerspace/git101> git log
+commit 5e0b82b18d36ca16abe3ac90f90eb9bb4ee6b838 (HEAD -> master, origin/master, origin/HEAD)
+Author: José Guilherme Vanz <jvanz@jvanz.com>
+Date:   Tue Oct 1 22:35:55 2019 -0300
 
-Quando o comando `git-commit` é executado o git grava todas as alterações que 
-estão 'staged' ou na area de 'stage' e grava na base de dados, no repositório.
+    README.md: git-branch e git-checkout
 
-`git log`
+    Adiciona documentação sobre os comandos git-branch, utilizado para
+    gerenciamento de branches. E git-checkout, usado para trocar de branch e
+    restaurar o estado do diretório de trabalho
 
-Agora que as alterações estão gravadas no repositório, você pode visualizar o
-histórico de alterações com o comando 'git-log'. Esse comando permite ver todas
-as alterações já gravadas em seu repositório.
+    Signed-off-by: José Guilherme Vanz <jvanz@jvanz.com>
 
-A medida que o seu projeto vai crescendo mudanças vão acontecendo. Então chega
-a hora que você altera o arquivo que já foi gravado anteriormente no repositório.
-Uma vez alterado o arquivo, você pode visualizar as alterações utilizando o 
-comando:
+commit 511d09ef77f9ec8b4eb0c4c8e48080acb7181f6b
+Author: José Guilherme Vanz <jvanz@jvanz.com>
+Date:   Tue Oct 1 21:48:22 2019 -0300
 
-`git diff`
+    README.md: git-reset, git-commit, git-mv, git-rm
 
-Esse comando mostra quais são as alterações feitas em relação ao que esta gravado
-na base de dados. O `git-diff` possui várias opções que permite diferente tipos
-de visualizações. Por exemplo, a flag `--word-diff` permite visualizar quais 
-foram as palavras alteradas no arquivo. Mais uma vez, após feita a alteração,
-você pode adicionar as alterações no index com git add, efetuar a alteração no
-repositório com git commit e visualizar o hostórico de alterações com o git log.
+    Adiciona documentação básico sobre o comandos git-commit, git-reset,
+    git-mv e git-rm
 
-Comforme o tempo vai passando, multiplas alterações podem serem feitas ao mesmo
-tempo. Para evitar que uma alteração afeta a outra você pode ser branches (ou 
-"ramos" no português). Isso é um conceito que também existe em outros controle 
-de versão. Simplificando bastante, podemos dizer que branches são linhas de 
-desenvolvimento paralelo no seu repositório.
+    Signed-off-by: José Guilherme Vanz <jvanz@jvanz.com>
 
-Vamos dar um exemplo, digamos que você receba solicitações de duas novas 
-funcionalidades no seu programa. Mas para evitar que uma alteração causa bug
-na outra, você utiliza branches. Assim cada uma pode ir avançando independente 
-e sem causar problemas uma na outra. Vamos como fazermos isso na pratica.
+Parametros legais:
 
-Todo repositório tem um branch padrão. Geralmente chamada do master. Quando 
-você iniciou a adicionar arquivos e commitar, você estava adicionando alterações
-no branch master. Agora que queremos criar outros branches, podemos executar o 
-command:
+--grep=<regex>: mostra os commit no qual a mensagem de commit corresponda com
+a expressão regular especificada.
+--L <começo>,<final>:<arquivo> ou --L :<nome funcao>:<arquivo> : permite acompanhar
+as alterações de um range de linhas ou função de um arquivo.
+--oneline: Mostra apenas a versão reduzida do hash e o titulo do commit
+--graph: desenha uma representação gráfica da história dos commits.
 
-`git branch funcionalidade1`
+#### git-tag
 
-Vamos ver se o branch foi criado:
+git tag
+
+Adiciona, lista, apaga ou verifca tags. Para criar uma tag, basta executar o 
+comando 'git tag minha-tag [commit|objeto]'. Por exemplo:
 
 ```
-git branch --list
-  funcionalidade1
-* master
+jvanz@earth:~/containers/skopeo> git tag minha-tag HEAD
+jvanz@earth:~/containers/skopeo> git tag minha-tag2 HEAD^1
+jvanz@earth:~/containers/skopeo> git log --oneline
+ee9e9df (HEAD -> master, tag: minha-tag, upstream/master, upstream/HEAD) Merge pull request #703 from marcov/fix-ostree-buildtags
+0f1ded2 ostree: use both image and & storage buildtags
+44bc4a9 (tag: minha-tag2) Merge pull request #701 from vrothberg/release
+89d6d0c bump to v0.1.40-dev
 ```
 
-Note que o `*` indica o branch atual. Não se esqueça que podemos ver que o 
-o branch pelo 'git-log':
+Para listar todas as tags, basta rodar o command sem argumentos:
 
 ```
-git log --oneline
-9043d17 (HEAD -> master, origin/master, origin/HEAD, funcionalidade1) README.md: documentação de comandos básicos
-2aeb99b .gitignore: adiciona o arquivo
-38d8d45 meson: adicionando arquivo de build
-c2ec518 main.cc: imprime resultado de operações matematicas
-7930238 Adiciona uma função de subtração
-565b76a Adiciona uma função de multiplicação
-3bcd17e Adiciona a função soma
-59d71e0 main.cc: adicionando arquivo com função main
-1e77941 Initial commit
+jvanz@earth:~/containers/skopeo> git tag
+minha-tag
+minha-tag2
+v0.1.0
+v0.1.1
+v0.1.10
+v0.1.11
+v0.1.12
+v0.1.13
+v0.1.15
 ```
 
-Veja as informações que estão antes do titulo do último commit. Isso mostra 
-em quais branches esse commit esta. O 'HEAD' que pode ser visto, é apenas um 
-pointeiro para indicar qual eh o branch atual que está sendo utilizado. Neste
-caso, é o master. Como tinhamos visto no 'git branch --list' anteriormente.
-Note também que ambos o branches 'master' e 'funcionalidade1' estão no mesmo
-commit. Isso acontece porque branch recem criado vai sempre apontar para o 
-commit que o HEAD esta apontando. Podemos dizer então que branches são ponteiros
-para uma sequencia de commits.
-
-Legal, agora que jah criamos nosso branch temos que mudar de branch. Ou seja, 
-preciamos fazer que o ponteiro 'HEAD' aponte para o branch 'funcionalidade1'.
-Fazemos isso utilizando o command 'git-checkout'
+Para apagar um tag basta utilizar a flag `-d, --delete`:
 
 ```
-jvanz@earth:~/hackerspace/git101> git checkout funcionalidade1
-Switched to branch 'funcionalidade1'
-jvanz@earth:~/hackerspace/git101> git branch --list
-* funcionalidade1
-  master
+jvanz@earth:~/containers/skopeo> git tag --delete minha-tag
+Deleted tag 'minha-tag' (was ee9e9df)
 ```
-
-Ótimo! Agora podemos começar a codificação da nova funcionalidade sem afetar 
-outros branches, como o master. Nessa nova funcionalidade, a desenvolvedora,
-adicionou alterou os arquivos do projeto e comitou. Maravilha, uma alteração
-simples. Nessa hora podemos ver as alterações feitas estão em outra "linha do
-tempo":
-
-```
-git log --oneline
-55575ae (HEAD -> funcionalidade1) README.md: git-diff, git-branch
-9043d17 (origin/master, origin/HEAD, master) README.md: documentação de comandos básicos
-2aeb99b .gitignore: adiciona o arquivo
-38d8d45 meson: adicionando arquivo de build
-c2ec518 main.cc: imprime resultado de operações matematicas
-7930238 Adiciona uma função de subtração
-565b76a Adiciona uma função de multiplicação
-3bcd17e Adiciona a função soma
-59d71e0 main.cc: adicionando arquivo com função main
-1e77941 Initial commit
-```
-
-Outra forma legal de visualizar é utilizando a flag '--graph'
-
-'''
-* 77aaa73 (HEAD -> master) resumo.md: arquivo com explicação resumida dos commandos
-| * d3677f8 (funcionalidade1) README.md: git-diff, git-branch
-|/
-* 9043d17 (origin/master, origin/HEAD) README.md: documentação de comandos básicos
-* 2aeb99b .gitignore: adiciona o arquivo
-* 38d8d45 meson: adicionando arquivo de build
-* c2ec518 main.cc: imprime resultado de operações matematicas
-* 7930238 Adiciona uma função de subtração
-* 565b76a Adiciona uma função de multiplicação
-* 3bcd17e Adiciona a função soma
-* 59d71e0 main.cc: adicionando arquivo com função main
-* 1e77941 Initial commit
-'''
-
-
-
-- Unificando seus branches
-	- `git-rebase`
-	- `git-merge`
-- Criando e aplicando patches
-	- `git-format-patch`
-	- `git-am`
-- Guardando alterações não terminadas
-	- `git-stash`
-- Encontrando um bug
-	- `git-bisect`
-- Quero um comando para chamar de meu
-	- `git-meu-command`
-
-Compartilhando codigo
---------------------
-
-`git-clone`
-Github
-Gitlab
-
-Coisas legais a se saber
------------------------
-
-Hooks
-`git-revisions`
