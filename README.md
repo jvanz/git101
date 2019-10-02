@@ -35,6 +35,22 @@ a versão identica anterior.
 No Git remotes são URI nos quais o git pode trazer ou mandar alterações, 
 comparar versões, entre outras operações
 
+#### O que é a "arvore de trabalho"?
+É uma versão do projeto que foi tirada da base de dados do git e feita disponivel
+para uso e modificação
+
+#### Os tres estados de um arquivo no Git
+
+- Modificado: TODO
+- "Staged": TODO
+- "Commited": TODO
+![Estados de um arquivo](https://git-scm.com/book/en/v2/images/areas.png)
+
+### O que é o 'HEAD'?
+HEAD é um ponteiro para o commit no qual as alterações feitas são baseadas.
+
+#### O que é o diretório de trabalho?
+
 
 Comandos
 --------
@@ -73,16 +89,83 @@ na base de dados do git.
 
 Coisas legais do `git add`:
 
-- `--patch` ou `-p`: permite adicionar apenas algumas alterações de um arquivo.
+- `--patch` ou `-p`: permite adicionar parcialmente as alterações de um arquivo.
 
 #### git-status
+
+`git status`
+
+Mostra as diferenças entre o index e o commit HEAD, as diferenças entre a area
+de "stage" e a arvore de trabalho. Bem como os arquivos que não estão sendo 
+monitorados pelo git.
+
 #### git-diff
+
+git diff
+
+Mostra as alterações entre commits, arvore de trabalho e index, entre branches 
+e etc.
+
+Parametros legais:
+
+--check : permite visualizar se você adiciou espaços em branco no final da linha,
+no final do arquivo, antes de um <tab>, entre outras vericações que podem ser
+habilitadas. Veja mais no man git-diff e man git-config
+--word-diff: ao inves que visualizar a linha que mudou, permite ver o que na
+linha foi alterado.
+
 #### git-commit
+
+git commit
+
+Grava as alterações que estão na area de "stage" na base de dados do repositório
+O novo commit criado é colocado como filho do HEAD e o ponteiro do branch é
+atualizado. Quando esse command é executado sem nenhum parametro, o edito padrão
+configurado é aberto para que o usuário informa uma mensagem descrevendo a alteração
+
+Parametros bacanas:
+
+--all/-a: Adiciona automaticamente no commit todos os arquivos alterados ou
+removidos que ainda não foram adicionados na area de stage.
+--message/-m: Permite que o usuário defina a mensagem de commit no momento em que
+o comando é executado. 
+--amend: substitui o ultimo commit do branch. Atenção! Cuidado para não fazer isso
+em um commit que já foi publicado em algum remote. Outros usuário podem ter 
+problemas quando você reescreve o histórico de commits.
+
 #### git-reset
+
+git reset [<modo>] <commit>
+
+Reinicia o HEAD atual para o estado espeficiado. Um dos usos mais communs para 
+esse comando é quando a desenvolvedora quer desfazer um commit. O git reset
+possui 5 modos diferentes. Mas os 3 mais utilizados são:
+
+--soft : Não mexe no index ou na arvore que trabalho. Mas reinicia o HEAD para 
+o <commit>. Faz com que todos os arquivos alterados fiquem como "Alterações a
+serem comitadas", na area de stage.
+--hard : Reinicia o index e arvore de trabalho. Todas as alterações desde o 
+<commit> são perdidas
+--mixed : Reinicia o index mas não a arvore de trabalho. Os arquivos alterados
+são preservados mas não são marcados para commit. Essa é o modo padrão do comando
+
+Existem mais alguns modos de utilização do git reset. Veja mais no man git-reset
+
 #### git-rm
+
+git rm
+
+Remove arquivos do index ou da arvore de trabalho e do index. 
+
 #### git-mv
 
-- Adicionando seu primeiro arquivo
+git mv <arquivo> <destino>
+
+Permite ao usuário mover ou renomear um arquivo. Se o mudança do local do arquivo,
+o diretório de destino já deve estar presente. Ao fazer a renomeação ou mudança
+de local, o index é atualizado.
+
+- Adicionando seu primeiro arquivos
 
 `git add main.cc`
 
