@@ -524,3 +524,41 @@ Date:   Thu Oct 3 21:23:33 2019 -0300
     Adicionando o arquivo README
 [...]
 ```
+
+#### git-cherry-pick
+
+'git cherry-pick <commit>'
+ 
+O comando 'git -cherry pick' permite ao usuário trazer as alterações de commits
+e reaplica-los em cima do branch atual. Por exemplo, considere o seguinte 
+histórico:
+
+```
+jvanz@earth:~/hackerspace/app> git --no-pager log --oneline --all --graph
+* d7d0092 (HEAD -> master) README.md
+| * d603398 (soma) Soma
+|/
+* 9ae2dec Commit inicial
+```
+
+Se executarmos o comando 'git cherry-pick d603398' quando estamos no branch 
+master, teremos o seguinte resultado:
+
+
+```
+jvanz@earth:~/hackerspace/app> git cherry-pick d603398
+[master 56ee444] Soma
+ Date: Thu Oct 3 21:21:25 2019 -0300
+ 2 files changed, 15 insertions(+), 2 deletions(-)
+ create mode 100644 include/operacoes.hh
+jvanz@earth:~/hackerspace/app> git --no-pager log --oneline --all --graph
+* 56ee444 (HEAD -> master) Soma
+* d7d0092 README.md
+| * d603398 (soma) Soma
+|/  
+* 9ae2dec Commit inicial
+```
+
+Note que o commit que selecionamos do branch 'soma' foi aplicado no branch master.
+São dois commits diferentes. Possuem hashes differentes. Porém, com as mesmas 
+alterações.
