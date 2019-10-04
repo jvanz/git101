@@ -233,9 +233,48 @@ restauradas para a versão do HEAD. Note que HEAD, pode ser outro commit também
 
 #### git-merge
 
-<!--
-TODO
--->
+`git merge`
+
+Unifica dois ou mais branches de desenvolvimento. O comando `git merge` eh 
+utilizado para unificar linhas de desenvolvimento que estao ocorrendo em branches
+separados em um unico branch. Por exemplo, vamos considerar o seguinte repositório:
+
+```
+jvanz@earth:~/hackerspace/app> git --no-pager log --oneline --graph --all
+* d7d0092 (HEAD -> master) README.md
+| * d603398 (soma) Soma
+|/
+* 9ae2dec Commit inicial
+```
+
+Note que estamos no branch master (O HEAD está apontando para o master). Para 
+trazermos as alterações do branch 'soma' para no branch master, executamos
+'git merge soma':
+
+```
+jvanz@earth:~/hackerspace/app> git merge soma
+Merge made by the 'recursive' strategy.
+ include/operacoes.hh |  2 ++
+ main.cc              | 15 +++++++++++++--
+ 2 files changed, 15 insertions(+), 2 deletions(-)
+ create mode 100644 include/operacoes.hh
+```
+
+Agora temos podemos ver o seguinte no 'git log':
+
+```
+jvanz@earth:~/hackerspace/app> git --no-pager log --oneline --graph --all
+*   22186cb (HEAD -> master) Merge branch 'soma'
+|\
+| * d603398 (soma) Soma
+* | d7d0092 README.md
+|/
+* 9ae2dec Commit inicial
+```
+
+O que aconteceu foi que o git pegou os commit no branch 'soma' desde o commit
+comum entre os dois branches, neste caso somente um commit (d603398) e 
+re aplicou eles sobre o branch 'master'. E criou um commit para marcar o merge.
 
 #### git-log
 
@@ -245,6 +284,7 @@ Permite visualizar o histórico de alterações. Com esse comando conseguimos
 ver as mensagens de comit, o autor, data, alterações feitas e demais dados
 do commit. Por exemplo:
 
+```
 jvanz@earth:~/hackerspace/git101> git log
 commit 5e0b82b18d36ca16abe3ac90f90eb9bb4ee6b838 (HEAD -> master, origin/master, origin/HEAD)
 Author: José Guilherme Vanz <jvanz@jvanz.com>
@@ -268,6 +308,7 @@ Date:   Tue Oct 1 21:48:22 2019 -0300
     git-mv e git-rm
 
     Signed-off-by: José Guilherme Vanz <jvanz@jvanz.com>
+```
 
 Parametros legais:
 
