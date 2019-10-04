@@ -562,3 +562,31 @@ jvanz@earth:~/hackerspace/app> git --no-pager log --oneline --all --graph
 Note que o commit que selecionamos do branch 'soma' foi aplicado no branch master.
 São dois commits diferentes. Possuem hashes differentes. Porém, com as mesmas 
 alterações.
+
+#### git-format-patch
+
+`git format-patch <commit>`
+
+O comando `git format-patch` permite ao usuário gerar um ou vários arquivos 
+de commits (patches). Por exemplo, se você quiser gerar patches dos últimos
+dois commits do branch:
+
+```
+jvanz@earth:~/hackerspace/app> git --no-pager log --oneline
+56ee444 (HEAD -> master) Soma
+d7d0092 README.md
+9ae2dec Commit inicial
+jvanz@earth:~/hackerspace/app> git format-patch HEAD^^
+0001-README.md.patch
+0002-Soma.patch
+jvanz@earth:~/hackerspace/app> ls
+0001-README.md.patch  0002-Soma.patch  meson.build  README.md
+```
+
+Esses arquivos contem as alterações e as informações dos commits. Esses arquivos
+podem ser enviados por e-mail ou alguma outra forma de comunicação e aplicado 
+em outro repositório. Esse comando é geralmente utilizado por projetos que 
+utilizam e-mail como principal forma de contribuição e comunicação. 
+
+Os arquivos gerados pelo 'git format-patch' podem ser aplicados novamente no 
+repositório pelo comando 'git am'
