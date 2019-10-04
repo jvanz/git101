@@ -590,3 +590,54 @@ utilizam e-mail como principal forma de contribuição e comunicação.
 
 Os arquivos gerados pelo 'git format-patch' podem ser aplicados novamente no 
 repositório pelo comando 'git am'
+
+#### git-am
+
+'git am'
+
+O comando 'git am' é utilizado para aplicar patches gerados a partir do 
+comando 'git format-patch'. Podem ser aplicados patches de um maildir, bem
+como patches individuais. Podemos aplicar patches da seguinte forma:
+
+```
+jvanz@earth:~/hackerspace/app> git --no-pager log --oneline
+9ae2dec (HEAD -> master) Commit inicial
+jvanz@earth:~/hackerspace/app> git am < 0001-README.md.patch
+Applying: README.md
+jvanz@earth:~/hackerspace/app> git am < 0002-Soma.patch
+Applying: Soma
+jvanz@earth:~/hackerspace/app> git --no-pager log
+commit 1dba6085844f47160eb3a0d0b06c0a9dbae63b3c (HEAD -> master)
+Author: José Guilherme Vanz <jvanz@jvanz.com>
+Date:   Thu Oct 3 21:21:25 2019 -0300
+
+    Soma
+
+    Adiciona um método para realizar soma de dois inteiros
+
+    Signed-off-by: José Guilherme Vanz <jvanz@jvanz.com>
+
+commit 248bf1f3393aed80a472e2440889f37048f2272e
+Author: José Guilherme Vanz <jvanz@jvanz.com>
+Date:   Thu Oct 3 21:23:33 2019 -0300
+
+    README.md
+
+    Adicionando o arquivo README
+
+    Signed-off-by: José Guilherme Vanz <jvanz@jvanz.com>
+
+commit 9ae2dec6377c1acbacb45c5c69662a62c50dd278
+Author: José Guilherme Vanz <jvanz@jvanz.com>
+Date:   Thu Oct 3 21:11:52 2019 -0300
+
+    Commit inicial
+
+    Adicionando arquivos iniciais
+
+    Signed-off-by: José Guilherme Vanz <jvanz@jvanz.com>
+
+```
+Note que o commit resultante ao patch aplicado mantem o autor do patch.
+
+
