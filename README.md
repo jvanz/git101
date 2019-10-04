@@ -46,8 +46,8 @@ para uso e modificação
 - "Commited": TODO
 ![Estados de um arquivo](https://git-scm.com/book/en/v2/images/areas.png)
 
-### O que é o 'HEAD'?
-HEAD é um ponteiro para o commit no qual as alterações feitas são baseadas.
+### O que é o `HEAD`?
+`HEAD` é um ponteiro para o commit no qual as alterações feitas são baseadas.
 
 #### O que é branch (ramos) ?
 Podemos pensar em branches como linhas de desenvolvimento paralelas. Isso 
@@ -106,71 +106,71 @@ Coisas legais do `git add`:
 
 `git status`
 
-Mostra as diferenças entre o index e o commit HEAD, as diferenças entre a area
+Mostra as diferenças entre o index e o commit `HEAD`, as diferenças entre a area
 de "stage" e a arvore de trabalho. Bem como os arquivos que não estão sendo 
 monitorados pelo git.
 
 #### git-diff
 
-git diff
+`git diff`
 
 Mostra as alterações entre commits, arvore de trabalho e index, entre branches 
 e etc.
 
 Parametros legais:
 
---check : permite visualizar se você adiciou espaços em branco no final da linha,
+* `--check` : permite visualizar se você adiciou espaços em branco no final da linha,
 no final do arquivo, antes de um <tab>, entre outras vericações que podem ser
 habilitadas. Veja mais no man git-diff e man git-config
---word-diff: ao inves que visualizar a linha que mudou, permite ver o que na
+* `--word-diff` : ao inves que visualizar a linha que mudou, permite ver o que na
 linha foi alterado.
 
 #### git-commit
 
-git commit
+`git commit`
 
 Grava as alterações que estão na area de "stage" na base de dados do repositório
-O novo commit criado é colocado como filho do HEAD e o ponteiro do branch é
+O novo commit criado é colocado como filho do `HEAD` e o ponteiro do branch é
 atualizado. Quando esse command é executado sem nenhum parametro, o edito padrão
 configurado é aberto para que o usuário informa uma mensagem descrevendo a alteração
 
 Parametros bacanas:
 
---all/-a: Adiciona automaticamente no commit todos os arquivos alterados ou
+* `--all/-a`: Adiciona automaticamente no commit todos os arquivos alterados ou
 removidos que ainda não foram adicionados na area de stage.
---message/-m: Permite que o usuário defina a mensagem de commit no momento em que
+* `--message/-m`: Permite que o usuário defina a mensagem de commit no momento em que
 o comando é executado. 
---amend: substitui o ultimo commit do branch. Atenção! Cuidado para não fazer isso
+* `--amend`: substitui o ultimo commit do branch. Atenção! Cuidado para não fazer isso
 em um commit que já foi publicado em algum remote. Outros usuário podem ter 
 problemas quando você reescreve o histórico de commits.
 
 #### git-reset
 
-git reset [<modo>] <commit>
+`git reset [<modo>] <commit>`
 
-Reinicia o HEAD atual para o estado espeficiado. Um dos usos mais communs para 
+Reinicia o `HEAD` atual para o estado espeficiado. Um dos usos mais communs para 
 esse comando é quando a desenvolvedora quer desfazer um commit. O git reset
 possui 5 modos diferentes. Mas os 3 mais utilizados são:
 
---soft : Não mexe no index ou na arvore que trabalho. Mas reinicia o HEAD para 
+* `--soft` : Não mexe no index ou na arvore que trabalho. Mas reinicia o `HEAD` para 
 o <commit>. Faz com que todos os arquivos alterados fiquem como "Alterações a
 serem comitadas", na area de stage.
---hard : Reinicia o index e arvore de trabalho. Todas as alterações desde o 
+* `--hard`: Reinicia o index e arvore de trabalho. Todas as alterações desde o 
 <commit> são perdidas
---mixed : Reinicia o index mas não a arvore de trabalho. Os arquivos alterados
+* `--mixed` : Reinicia o index mas não a arvore de trabalho. Os arquivos alterados
 são preservados mas não são marcados para commit. Essa é o modo padrão do comando
 
 Existem mais alguns modos de utilização do git reset. Veja mais no man git-reset
 
 #### git-rm
 
-git rm
+`git rm`
 
 Remove arquivos do index ou da arvore de trabalho e do index. 
 
 #### git-mv
 
-git mv <arquivo> <destino>
+`git mv <arquivo> <destino>`
 
 Permite ao usuário mover ou renomear um arquivo. Se o mudança do local do arquivo,
 o diretório de destino já deve estar presente. Ao fazer a renomeação ou mudança
@@ -181,23 +181,25 @@ de local, o index é atualizado.
 
 #### git-branch
 
-git branch [<nome>]
+`git branch [<nome>]`
 
 O comando git branch permite ao usuário criar, listar e apagar branches no seu
 repositório. Para listar os branches disponiveis repositório basta executar:
 
+```
 jvanz@earth:~/hackerspace/git101> git branch --list
   conceitos
 * master
+```
 
 O branch marcado com o `*` é o branch atual.
 
 Para criar novos branches pode ser executado o comando:
 
-git branch meu-branch [<ponto-de-inicio>]
+`git branch meu-branch [<ponto-de-inicio>]`
 
 Esse comando cria um novo branch localmente com o nome especificado. Esse branch,
-aponta para o mesmo commit do HEAD. Ou se especificado o <ponto-de-inicio>, o
+aponta para o mesmo commit do `HEAD`. Ou se especificado o <ponto-de-inicio>, o
 branch apontara para o commit especificado. Note que ao criar o branch, o git
 não troca automaticamente de branch. Para isso existe o comando git-checkout.
 
@@ -212,11 +214,11 @@ Por exemplo:
 
 #### git-checkout
 
-git checkout 
+`git checkout`
 
 Esse comando permite trocarmos de branches ou restaurar o diretório de trabalho.
-Uma vez criado o branch, podemos usar o comando 'git checkout meu-branch' para 
-trocar de branch. Isso significa que o HEAD ira começar apontar para o comit no
+Uma vez criado o branch, podemos usar o comando `git checkout meu-branch` para 
+trocar de branch. Isso significa que o `HEAD` ira começar apontar para o comit no
 topo do branch, atualiza o index e os arquivos no diretório de trabalho. 
 Uma vez feito isso, os próximos commits serão adicionados no topo do branch recem
 trocado. Alterações locais são mantidas para que possam ser comitadas no branch.
@@ -224,12 +226,12 @@ trocado. Alterações locais são mantidas para que possam ser comitadas no bran
 Outro possível uso do comando é para restaurar o diretório de trabalho. Para isso,
 podemos rodar o seguinte comando:
 
-git checkout -- <path>
+`git checkout -- <path>`
 
 Esse command faz com que as alterações do diretório de trabalho sejam descartadas.
 Mas as mudanças que estão "staged" são mantidas. Porém, se o comando for um pouco
-diferente, git checkout HEAD -- <path>, as alterações do index/stage também são
-restauradas para a versão do HEAD. Note que HEAD, pode ser outro commit também.
+diferente, `git checkout HEAD -- <path>`, as alterações do index/stage também são
+restauradas para a versão do `HEAD`. Note que `HEAD`, pode ser outro commit também.
 
 #### git-merge
 
@@ -247,9 +249,9 @@ jvanz@earth:~/hackerspace/app> git --no-pager log --oneline --graph --all
 * 9ae2dec Commit inicial
 ```
 
-Note que estamos no branch master (O HEAD está apontando para o master). Para 
-trazermos as alterações do branch 'soma' para no branch master, executamos
-'git merge soma':
+Note que estamos no branch master (O `HEAD` está apontando para o master). Para 
+trazermos as alterações do branch `soma` para no branch master, executamos
+`git merge soma`:
 
 ```
 jvanz@earth:~/hackerspace/app> git merge soma
@@ -260,7 +262,7 @@ Merge made by the 'recursive' strategy.
  create mode 100644 include/operacoes.hh
 ```
 
-Agora temos podemos ver o seguinte no 'git log':
+Agora temos podemos ver o seguinte no `git log`:
 
 ```
 jvanz@earth:~/hackerspace/app> git --no-pager log --oneline --graph --all
@@ -272,13 +274,13 @@ jvanz@earth:~/hackerspace/app> git --no-pager log --oneline --graph --all
 * 9ae2dec Commit inicial
 ```
 
-O que aconteceu foi que o git pegou os commit no branch 'soma' desde o commit
+O que aconteceu foi que o git pegou os commit no branch `soma` desde o commit
 comum entre os dois branches, neste caso somente um commit (d603398) e 
-re aplicou eles sobre o branch 'master'. E criou um commit para marcar o merge.
+re aplicou eles sobre o branch `master`. E criou um commit para marcar o merge.
 
 #### git-log
 
-git log 
+`git log`
 
 Permite visualizar o histórico de alterações. Com esse comando conseguimos
 ver as mensagens de comit, o autor, data, alterações feitas e demais dados
@@ -312,19 +314,19 @@ Date:   Tue Oct 1 21:48:22 2019 -0300
 
 Parametros legais:
 
---grep=<regex>: mostra os commit no qual a mensagem de commit corresponda com
+* `--grep=<regex>`: mostra os commit no qual a mensagem de commit corresponda com
 a expressão regular especificada.
---L <começo>,<final>:<arquivo> ou --L :<nome funcao>:<arquivo> : permite acompanhar
+* `--L <começo>,<final>:<arquivo>` ou `--L :<nome funcao>:<arquivo>` : permite acompanhar
 as alterações de um range de linhas ou função de um arquivo.
---oneline: Mostra apenas a versão reduzida do hash e o titulo do commit
---graph: desenha uma representação gráfica da história dos commits.
+* `--oneline`: Mostra apenas a versão reduzida do hash e o titulo do commit
+* `--graph`: desenha uma representação gráfica da história dos commits.
 
 #### git-tag
 
-git tag
+`git tag`
 
 Adiciona, lista, apaga ou verifca tags. Para criar uma tag, basta executar o 
-comando 'git tag minha-tag [commit|objeto]'. Por exemplo:
+comando `git tag minha-tag [commit|objeto]`. Por exemplo:
 
 ```
 jvanz@earth:~/containers/skopeo> git tag minha-tag HEAD
@@ -362,7 +364,7 @@ Deleted tag 'minha-tag' (was ee9e9df)
 
 `git revert <commit>`
 
-O comando 'git revert' permite ao usuário reverter as alterações de um commit ou
+O comando `git revert` permite ao usuário reverter as alterações de um commit ou
 uma série de commits. O que o comando faz é aplicar o patch reverso. Ou seja,
 o que estava sendo adicionado no commit é removido e o que estava sendo removido
 é adicionado novamente. 
@@ -527,9 +529,9 @@ Date:   Thu Oct 3 21:23:33 2019 -0300
 
 #### git-cherry-pick
 
-'git cherry-pick <commit>'
+`git cherry-pick <commit>`
  
-O comando 'git -cherry pick' permite ao usuário trazer as alterações de commits
+O comando `git -cherry pick` permite ao usuário trazer as alterações de commits
 e reaplica-los em cima do branch atual. Por exemplo, considere o seguinte 
 histórico:
 
@@ -541,7 +543,7 @@ jvanz@earth:~/hackerspace/app> git --no-pager log --oneline --all --graph
 * 9ae2dec Commit inicial
 ```
 
-Se executarmos o comando 'git cherry-pick d603398' quando estamos no branch 
+Se executarmos o comando `git cherry-pick d603398` quando estamos no branch 
 master, teremos o seguinte resultado:
 
 
@@ -559,7 +561,7 @@ jvanz@earth:~/hackerspace/app> git --no-pager log --oneline --all --graph
 * 9ae2dec Commit inicial
 ```
 
-Note que o commit que selecionamos do branch 'soma' foi aplicado no branch master.
+Note que o commit que selecionamos do branch `soma` foi aplicado no branch master.
 São dois commits diferentes. Possuem hashes differentes. Porém, com as mesmas 
 alterações.
 
@@ -588,15 +590,15 @@ podem ser enviados por e-mail ou alguma outra forma de comunicação e aplicado
 em outro repositório. Esse comando é geralmente utilizado por projetos que 
 utilizam e-mail como principal forma de contribuição e comunicação. 
 
-Os arquivos gerados pelo 'git format-patch' podem ser aplicados novamente no 
-repositório pelo comando 'git am'
+Os arquivos gerados pelo `git format-patch` podem ser aplicados novamente no 
+repositório pelo comando `git am`
 
 #### git-am
 
-'git am'
+`git am`
 
-O comando 'git am' é utilizado para aplicar patches gerados a partir do 
-comando 'git format-patch'. Podem ser aplicados patches de um maildir, bem
+O comando `git am` é utilizado para aplicar patches gerados a partir do 
+comando `git format-patch`. Podem ser aplicados patches de um maildir, bem
 como patches individuais. Podemos aplicar patches da seguinte forma:
 
 ```
