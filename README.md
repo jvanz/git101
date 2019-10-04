@@ -357,3 +357,170 @@ Para apagar um tag basta utilizar a flag `-d, --delete`:
 jvanz@earth:~/containers/skopeo> git tag --delete minha-tag
 Deleted tag 'minha-tag' (was ee9e9df)
 ```
+
+#### git-revert
+
+`git revert <commit>`
+
+O comando 'git revert' permite ao usuário reverter as alterações de um commit ou
+uma série de commits. O que o comando faz é aplicar o patch reverso. Ou seja,
+o que estava sendo adicionado no commit é removido e o que estava sendo removido
+é adicionado novamente. 
+
+Quando o commit é executado ele automáticamente já cria um commit desfazendo as 
+alterações. Vejamos um exemplo. Suponha que temos o seguinte histórico:
+
+```
+jvanz@earth:~/hackerspace/app> git --no-pager log --patch
+commit 8a2de5b35a26b2d5f32c65b5bb9699f6429fb934
+Author: José Guilherme Vanz <jvanz@jvanz.com>
+Date:   Thu Oct 3 22:12:23 2019 -0300
+
+    Subtração
+
+    Adicionado um método que realiza a subtração de dois inteiros.
+
+    Signed-off-by: José Guilherme Vanz <jvanz@jvanz.com>
+
+diff --git a/include/operacoes.hh b/include/operacoes.hh
+index 89ad4d0..8d7dfdf 100644
+--- a/include/operacoes.hh
++++ b/include/operacoes.hh
+@@ -1,2 +1,3 @@
+
+ int soma(int a, int b);
++int subtracao(int a, int b);
+diff --git a/main.cc b/main.cc
+index 9cafabc..d74daa3 100644
+--- a/main.cc
++++ b/main.cc
+@@ -7,6 +7,11 @@ int soma(int a, int b)
+        return a + b;
+ }
+
++int subtracao(int a, int b)
++{
++       return a - b;
++}
++
+ int main(void)
+ {
+        auto resultado = soma(2,3);
+
+commit 22186cbec76e0885bec3fa2e2605b53d0835a725
+Merge: d7d0092 d603398
+Author: José Guilherme Vanz <jvanz@jvanz.com>
+Date:   Thu Oct 3 21:27:10 2019 -0300
+
+    Merge branch 'soma'
+
+commit d7d0092a153cda440d87a25ac2c1999ebed4d2a2
+Author: José Guilherme Vanz <jvanz@jvanz.com>
+Date:   Thu Oct 3 21:23:33 2019 -0300
+
+    README.md
+
+    Adicionando o arquivo README
+    
+    Signed-off-by: José Guilherme Vanz <jvanz@jvanz.com>
+
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..f2e4d56
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1 @@
++Aplicação utilizada no exemplo de como é possível usar git.
+```
+
+Se aplicarmos o seguinte comando:
+
+`git revert 8a2de5b`
+
+O resultado é:
+```
+jvanz@earth:~/hackerspace/app> git --no-pager log --patch
+commit 5679b5d58f015440657979b8182563021eaab83b
+Author: José Guilherme Vanz <jvanz@jvanz.com>
+Date:   Thu Oct 3 22:15:54 2019 -0300
+
+    Revert "Subtração"
+
+    This reverts commit 8a2de5b35a26b2d5f32c65b5bb9699f6429fb934.
+
+diff --git a/include/operacoes.hh b/include/operacoes.hh
+index 8d7dfdf..89ad4d0 100644
+--- a/include/operacoes.hh
++++ b/include/operacoes.hh
+@@ -1,3 +1,2 @@
+
+ int soma(int a, int b);
+-int subtracao(int a, int b);
+diff --git a/main.cc b/main.cc
+index d74daa3..9cafabc 100644
+--- a/main.cc
++++ b/main.cc
+@@ -7,11 +7,6 @@ int soma(int a, int b)
+        return a + b;
+ }
+
+-int subtracao(int a, int b)
+-{
+-       return a - b;
+-}
+-
+ int main(void)
+ {
+        auto resultado = soma(2,3);
+
+commit 8a2de5b35a26b2d5f32c65b5bb9699f6429fb934
+Author: José Guilherme Vanz <jvanz@jvanz.com>
+Date:   Thu Oct 3 22:12:23 2019 -0300
+
+    Subtração
+
+    Adicionado um método que realiza a subtração de dois inteiros.
+
+    Signed-off-by: José Guilherme Vanz <jvanz@jvanz.com>
+
+diff --git a/include/operacoes.hh b/include/operacoes.hh
+index 89ad4d0..8d7dfdf 100644
+--- a/include/operacoes.hh
++++ b/include/operacoes.hh
+@@ -1,2 +1,3 @@
+
+ int soma(int a, int b);
++int subtracao(int a, int b);
+diff --git a/main.cc b/main.cc
+index 9cafabc..d74daa3 100644
+--- a/main.cc
++++ b/main.cc
+@@ -7,6 +7,11 @@ int soma(int a, int b)
+        return a + b;
+ }
+
++int subtracao(int a, int b)
++{
++       return a - b;
++}
++
+ int main(void)
+ {
+        auto resultado = soma(2,3);
+
+commit 22186cbec76e0885bec3fa2e2605b53d0835a725
+Merge: d7d0092 d603398
+Author: José Guilherme Vanz <jvanz@jvanz.com>
+Date:   Thu Oct 3 21:27:10 2019 -0300
+
+    Merge branch 'soma'
+
+commit d7d0092a153cda440d87a25ac2c1999ebed4d2a2
+Author: José Guilherme Vanz <jvanz@jvanz.com>
+Date:   Thu Oct 3 21:23:33 2019 -0300
+
+    README.md
+
+    Adicionando o arquivo README
+[...]
+```
