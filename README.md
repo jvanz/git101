@@ -642,4 +642,69 @@ Date:   Thu Oct 3 21:11:52 2019 -0300
 ```
 Note que o commit resultante ao patch aplicado mantem o autor do patch.
 
+### Interagindo com repositórios remotos
+
+#### git-remote
+
+O comando git remote permite ao usuário listar, adicionar, atualizar e remover
+repositórios git remotos. `remotes` são repositórios git que podem estar em
+outra máquina ou em algum serviço de hospedagem como Gitlab, Github, Bitbucket
+e etc. Para adicionar um `remote` o usuário pode executar:
+
+`git remote add origin git@github.com:jvanz/git101.git`
+
+Para listar todos os remotes:
+
+```
+jvanz@earth:~/hackerspace/app> git remote -v
+origin  git@github.com:jvanz/git101.git (fetch)
+origin  git@github.com:jvanz/git101.git (push)
+```
+
+O argumento `-v` é opcional. Ele faz com que as URL de cada remote seja exibida
+também. Sem esse opção apenas o nome é mostrado. 
+
+Para apagar um remote:
+
+```
+jvanz@earth:~/hackerspace/app> git remote -v
+origin  git@github.com:jvanz/git101.git (fetch)
+origin  git@github.com:jvanz/git101.git (push)
+jvanz@earth:~/hackerspace/app> git remote remove origin
+jvanz@earth:~/hackerspace/app> git remote -v
+```
+
+#### git-fetch
+
+`git fetch <remote> <ref>`
+`git fetch --all`
+
+O comando `git fetch` traz os meta dados do repositório remoto. Ele baixa todas
+as informações de tags, branches e o histórico de commits. O usuário pode baixar
+os dados de todos os repositórios de uma única vez, utlizando a flag `--all` ou
+especificando um `remote` desejado:
+
+`git fetch --all`
+`git fetch origin`
+
+#### git-pull
+
+`git pull <remote> <ref>`
+
+O comando `git pull` server para trazer as alterações de um `remote` para o 
+repositório local. Ou seja, ele incorpora as alterações de um repositório 
+remote no branch local. Por debaixo dos panos, o que o `git pull` faz é um 
+`git fetch` seguido de um `git merge` ou `git rebase`. 
+
+#### git-push
+
+`git push <remote> <ref>`
+
+O comando `git push` permite ao usuário mandar as alterações locais para um 
+repositório remoto. A forma mais simples de fazer isso é:
+
+`git push origin master`
+
+Isso faz com que você mande para o repositório remoto, no branch `master` as 
+do branch local atual no qual você está trabalhando.
 
